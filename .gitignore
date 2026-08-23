@@ -1,0 +1,12 @@
+# screenshots written by _srv.js
+_*.png
+
+node_modules/
+*.log
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
