@@ -8,7 +8,9 @@ Based on SOLAS II-2 Reg. 4.5.5, FSS Code Chapter 15 and ISGOTT 6.
 
 ## Running it
 
-Open `IGS-3D-Training-Simulator.html` in Chrome, Edge or Firefox. That is all.
+**In the browser:** <https://mrhakan.github.io/inert-gas-simulator/>
+
+Or open `IGS-3D-Training-Simulator.html` locally in Chrome, Edge or Firefox. That is all.
 
 If you prefer to serve it over HTTP (for example to open it from another device on the same network):
 
@@ -72,6 +74,16 @@ Keyboard: `Space` play/pause · `←` `→` previous/next step · `L` labels · 
 `W` wireframe · `S` sea · `G` schematic/ship view · `R` reset camera · `Esc` close window.
 
 Progress is kept in the page only; reloading starts a fresh session.
+
+## Publishing
+
+The page at <https://mrhakan.github.io/inert-gas-simulator/> is published by
+`.github/workflows/pages.yml` on every push to `main` (and on demand from the Actions tab).
+The workflow copies the simulator to `index.html` and uploads it as the Pages artifact — nothing is
+built, so the published page is byte-for-byte the file in this repository.
+
+The first run needs *Settings → Pages → Source* set to **GitHub Actions**; the workflow tries to set
+this itself, so in most cases there is nothing to do.
 
 ## Note
 
