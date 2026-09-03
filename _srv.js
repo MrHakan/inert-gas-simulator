@@ -9,10 +9,11 @@ http.createServer((rq,rs)=>{
     });return;
   }
   let p=decodeURIComponent(rq.url.split('?')[0]);
-  if(p==='/')p='/IGS-3D-Training-Simulator.html';
+  if(p==='/')p='/IGS-3D-Training-Simulator.html';          // English edition
+  if(p==='/tr'||p==='/tr/')p='/IGS-3D-Egitim-Simulatoru.html'; // Turkish edition (v3)
   fs.readFile(path.join(root,p),(e,d)=>{
     if(e){rs.writeHead(404);rs.end('404');return;}
     rs.writeHead(200,{'Content-Type':p.endsWith('.html')?'text/html; charset=utf-8':'image/png'});
     rs.end(d);
   });
-}).listen(8733,()=>console.log('http://localhost:8733'));
+}).listen(8733,()=>console.log('http://localhost:8733  (Turkish edition: /tr)'));

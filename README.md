@@ -6,11 +6,24 @@ file, so it runs on any modern browser with no install, no build step and no net
 
 Based on SOLAS II-2 Reg. 4.5.5, FSS Code Chapter 15 and ISGOTT 6.
 
+## Two editions
+
+| File | Language | Plant data | Notes |
+| --- | --- | --- | --- |
+| `IGS-3D-Training-Simulator.html` | English | Ship-specific values (see *Plant data modelled*) | Landing page |
+| `IGS-3D-Egitim-Simulatoru.html` | Türkçe | Generic training values (2 × 8,000 m³/h blowers, P/V +1400/−350, breaker +2000/−700, 3 × 4,200 m³/h pumps) | **v3** — carries the newest features listed under *New in v3* |
+
+The two editions share the same engine and 3D scene; the English edition will pick up the v3 features
+in a follow-up.
+
 ## Running it
 
-**In the browser:** <https://mrhakan.github.io/inert-gas-simulator/>
+**In the browser:**
 
-Or open `IGS-3D-Training-Simulator.html` locally in Chrome, Edge or Firefox. That is all.
+- English: <https://mrhakan.github.io/inert-gas-simulator/>
+- Türkçe (v3): <https://mrhakan.github.io/inert-gas-simulator/tr/>
+
+Or open the HTML file locally in Chrome, Edge or Firefox. That is all.
 
 If you prefer to serve it over HTTP (for example to open it from another device on the same network):
 
@@ -18,33 +31,58 @@ If you prefer to serve it over HTTP (for example to open it from another device 
 node _srv.js
 ```
 
-then browse to <http://localhost:8733>.
+then browse to <http://localhost:8733> (English) or <http://localhost:8733/tr> (Türkçe).
 
 ## What is in it
 
-**9 modules, 41 lessons**
+**9 modules, 41 lessons** (English) · **9 modül, 45 ders** (Türkçe v3)
 
 | Module | Content |
 | --- | --- |
 | Fundamentals | Fire triangle, flammability diagram, inert gas sources, regulatory framework |
 | System components | End-to-end 3D tour, scrubber, blowers, deck water seal, P/V devices, instrumentation |
-| Start-up procedure | Pre-start checks, step-by-step start-up, normal shutdown |
-| Cargo operations | Inerting (dilution vs. displacement), loading, discharge, topping-up, COW |
-| Purging and gas freeing | Purging to HC < 2%, gas freeing, enclosed space entry |
+| Start-up procedure | Pre-start checks, step-by-step start-up, normal shutdown · v3: interlocked cold start you perform yourself, IGG operation |
+| Cargo operations | Inerting (dilution vs. displacement), loading, discharge, topping-up, COW · v3: day/night thermal breathing cycle |
+| Purging and gas freeing | Purging to HC < 2%, gas freeing, enclosed space entry · v3: entry permit and gas-free certificate |
 | Alarms, faults and safety | Alarm and shutdown list, three fault scenarios, hazards, IG quality and cargo contamination |
 | Cargo pumps and steam | Steam-turbine cargo pumps, the pump → steam → boiler → IG quality chain |
-| Scenarios | Free operation plus 9 abnormal situations |
-| Assessment | Quick reference card and a 28-question test |
+| Scenarios | Free operation plus 9 abnormal situations · v3: 10th scenario — sour crude / H₂S |
+| Assessment | Quick reference card and a 28-question test (30 questions in v3) |
 
 **Simulation** — an O₂ mixing model (dilution and displacement), a pressure balance based on the
 connected gas volume, tank atmospheres per tank, the boiler-load / flue-gas-O₂ relationship, the steam
 system and the cargo pumps, alarms, automatic shutdowns and a trend recorder.
 
 **Free operation control station** — valves, blowers, cargo pumps, steam dump, the branch valve of each
-of the 14 tanks, operating modes, preset states and 10 injectable faults, so the plant can be run
+of the 14 tanks, operating modes, preset states and injectable faults, so the plant can be run
 without following a lesson.
 
-## Plant data modelled
+## New in v3 (Turkish edition)
+
+1. **Interlocks and start-up sequence** — blower start is blocked without scrubber water, water seal
+   level or a gas source; the deck isolating valve stays locked until the O₂ analyser is warmed up,
+   calibrated and reading ≤ 5%; a tank with an active entry permit cannot have its branch valve opened.
+   The instructor can bypass the interlocks — every bypass costs points.
+2. **Per-tank pressure and thermal breathing** — tanks with an open branch valve equalise with the deck
+   main; an isolated tank carries its own pressure and is protected only by its own P/V valve. A day/night
+   temperature cycle (≈ 34 mmWG per °C) raises the pressure in the afternoon and lets it fall at night,
+   so topping-up becomes a real, observed need.
+3. **Inert gas generator (IGG)** — an independent combustion unit for port operation with the boilers
+   shut down: purge → ignition → load, its own blower and cooling, flame-failure and cooling-water trips,
+   a 3D model in both scenes and a warning when the blowers are run with the uptake closed.
+4. **Alarm management** — audible horn for critical alarms, ACK / silence, unacknowledged-alarm
+   blinking and an alarm history (raised / acknowledged / cleared times).
+5. **H₂S and enclosed space entry** — sour crude releases H₂S into the ullage space; a deck H₂S alarm
+   during venting; an entry permit form with live measurements (O₂ 20.9%, HC < 1% LEL, H₂S < 5 ppm,
+   isolation, portable ventilation), a supervisor checklist and a gas-free certificate. The permit is
+   voided automatically if the atmosphere deteriorates or the branch valve is opened.
+6. **Session scoring, IG log book and report** — free operation is scored against 13 rules (P/V lift,
+   vacuum, cargo operation in a non-inert tank, interlock bypass, unacknowledged alarm, permit
+   violation…); an hourly IG log book is kept and a printable / copyable report is produced.
+7. **Persistent progress** — completed lessons, best test score, view preferences and session results
+   are kept in the browser (localStorage) and can be reset from the lesson panel.
+
+## Plant data modelled (English edition)
 
 | Item | Value |
 | --- | --- |
@@ -73,14 +111,15 @@ without following a lesson.
 Keyboard: `Space` play/pause · `←` `→` previous/next step · `L` labels · `C` cutaway · `F` gas flow ·
 `W` wireframe · `S` sea · `G` schematic/ship view · `R` reset camera · `Esc` close window.
 
-Progress is kept in the page only; reloading starts a fresh session.
+Progress is kept in the page only in the English edition; the Turkish v3 edition stores it in the browser.
 
 ## Publishing
 
-The page at <https://mrhakan.github.io/inert-gas-simulator/> is published by
+The pages at <https://mrhakan.github.io/inert-gas-simulator/> (English) and
+<https://mrhakan.github.io/inert-gas-simulator/tr/> (Türkçe) are published by
 `.github/workflows/pages.yml` on every push to `main` (and on demand from the Actions tab).
-The workflow copies the simulator to `index.html` and uploads it as the Pages artifact — nothing is
-built, so the published page is byte-for-byte the file in this repository.
+The workflow copies the simulator files into place and uploads them as the Pages artifact — nothing is
+built, so the published pages are byte-for-byte the files in this repository.
 
 The first run needs *Settings → Pages → Source* set to **GitHub Actions**; the workflow tries to set
 this itself, so in most cases there is nothing to do.
